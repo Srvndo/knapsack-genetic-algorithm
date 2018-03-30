@@ -170,6 +170,11 @@ class Population {
         if (this.generation >= max_generation) {
             return true;
         }
+
+        var self = this
+        setTimeout(function() {
+            self.generate(cross_prob, mutate_prob, max_generation);
+          }, 100);
     }
 }
 

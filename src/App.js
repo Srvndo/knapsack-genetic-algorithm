@@ -76,13 +76,12 @@ class InputComponent extends Component {
     population.initialize(items, this.state.max_weight);
 
     var self = this;
-    setTimeout(function() {
-      population.generate(self.state.cross_probability, 
-        self.state.mutation_probability,
-        self.state.max_generation);
-    }, 100);
 
+    population.generate(self.state.cross_probability, 
+      self.state.mutation_probability,
+      self.state.max_generation);
     
+
     items.map((item, count) => {
       if(population.genes[0].genotype[count] === 1){
         solution.push(
@@ -92,10 +91,9 @@ class InputComponent extends Component {
         );
       }
     });
-
     console.log(population);
-    console.log(population.solution);
     console.log(solution);
+    console.log(items);
     this.setState({
       solution: solution,
       fitness: <h3> Fitness: { population.solution } </h3>
