@@ -16,6 +16,7 @@ class InputComponent extends Component {
       mutation_probability: 1,
       dataset: [],
       solution: [],
+      genotype: [],
       fitness: null
     }
   }
@@ -60,6 +61,7 @@ class InputComponent extends Component {
   onClick = () => {
     var items = [];
     var solution = [];
+    var genotype = [];
     this.state.dataset.map(data => {items.push(new Item(data[0], data[1]))});
     
   
@@ -81,7 +83,8 @@ class InputComponent extends Component {
       self.state.mutation_probability,
       self.state.max_generation);
     
-
+      solution.push(<br></br>);
+    solution.push(<h3>Knapsack:</h3>);
     items.map((item, count) => {
       if(population.genes[0].genotype[count] === 1){
         solution.push(
@@ -91,12 +94,28 @@ class InputComponent extends Component {
         );
       }
     });
+
+    genotype.push(<h3>Genotype:</h3>);
+    genotype.push(<a style={{marginRight: '6%'}}> [</a>);
+    
+    population.genes[0].genotype.map(geno => {
+      genotype.push(
+        <a style={{marginRight: '6%'}}> 
+          {geno}   
+        </a>
+      );
+    });
+
+    genotype.push(<a style={{marginRight: '6%'}}> ]</a>);
+
     console.log(population);
     console.log(solution);
     console.log(items);
+
     this.setState({
       solution: solution,
-      fitness: <h3> Fitness: { population.solution } </h3>
+      fitness: [<h3> Fitness: { population.solution } </h3>, <br></br>],
+      genotype: genotype
     });
   }
 
@@ -195,6 +214,7 @@ class InputComponent extends Component {
               :
               [
                 this.state.fitness,
+                this.state.genotype,
                 this.state.solution
               ]
           }
